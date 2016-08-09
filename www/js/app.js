@@ -45,16 +45,18 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
   .state('app.aboutus', {
       url: '/aboutus',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/aboutus.html'
+        'mainContent': {
+          templateUrl: 'templates/aboutus.html',
+            controller: 'AboutController'
         }
       }
     })
     .state('app.contactus', {
       url: '/contactus',
       views: {
-        'menuContent': {
+        'mainContent': {
           templateUrl: 'templates/contactus.html',
+            controller: 'ContactController'
         }
       }
     })
