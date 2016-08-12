@@ -69,8 +69,8 @@ angular.module('conFusion.controllers', [])
     }, 1000);
   };
 })
-.controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', function ($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
 
+.controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
     $scope.baseURL = baseURL;
     $scope.shouldShowDelete = false;
 
@@ -91,8 +91,21 @@ angular.module('conFusion.controllers', [])
     }
 
     $scope.deleteFavorite = function (index) {
-        
-        favoriteFactory.deleteFromFavorites(index);
+
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Confirm Delete Favorite',
+            template: 'Are you sure you want to delete this item?'
+        });
+
+        confirmPopup.then(function(res){
+            if(res){
+                console.log('ok to delete');
+                favoriteFactory.deleteFromFavorites(index);
+            } else {
+                console.log('Canceled delete');
+            }
+        });
+
         $scope.shouldShowDelete = false;
 
     }}])
