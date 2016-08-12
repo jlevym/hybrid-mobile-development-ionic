@@ -74,11 +74,18 @@ angular.module('conFusion.controllers', [])
     $scope.baseURL = baseURL;
     $scope.shouldShowDelete = false;
 
+    $ionicLoading.show({
+        template: '<ion-spinner></ion-spinner> Loading....'
+    });
+
     $scope.favorites = favoriteFactory.getFavorites();
 
     $scope.dishes = menuFactory.getDishes().query(
         function (response) {
             $scope.dishes = response;
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 2000);
         },
         function (response) {
             $scope.message = "Error: " + response.status + " " + response.statusText;
