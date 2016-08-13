@@ -233,6 +233,7 @@ angular.module('conFusion.controllers', [])
                       $scope.popover = popover;
                    });
 
+
                    $scope.openPopover = function($event) {
                       $scope.popover.show();
                    };
@@ -257,11 +258,11 @@ angular.module('conFusion.controllers', [])
                    }); 
 
 
-            $scope.comments = {};
+           
 
-  // Create the comment modal 
-            $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
-                    scope: $scope
+                  // Create the comment modal 
+                  $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+                  scope: $scope
                   }).then(function(modal) {
                     $scope.commentform = modal;
                   });
@@ -277,7 +278,7 @@ angular.module('conFusion.controllers', [])
                   };
 
                   // Perform the comment action when the user submits the commentform
-                  $scope.doComment = function() {
+                  /*$scope.doComment = function() {
                     console.log('saving comment', $scope.comments);
 
                     // Simulate a comment delay. Remove this and replace with your comment
@@ -285,9 +286,25 @@ angular.module('conFusion.controllers', [])
                     $timeout(function() {
                       $scope.closeComment();
                     }, 1000);
-                  };    
+                    $timeout(function() {
+                      $scope.closePopover();
+                    }, 1000);
 
-              
+                  }; */
+
+
+                    $scope.mycomments = {};
+                    $scope.mycomment = {rating:5, comment:"", author:"", date:""};
+                
+                    $scope.submitComment = function () {
+                    $scope.mycomment.date = new Date().toISOString();
+                    console.log($scope.mycomment);
+                    console.log('$scope.dish.id = ' + $scope.dish.id);
+                    $scope.dish.comments.push($scope.mycomment);
+                            menuFactory.getDishes().update({id:$scope.dish.id},$scope.dish);
+                    //$scope.commentForm.$setPristine();
+                    $scope.mycomment = {rating:5, comment:"", author:"", date:""};
+                    }
 
      
             
@@ -305,7 +322,7 @@ angular.module('conFusion.controllers', [])
                 $scope.dish.comments.push($scope.mycomment);
                         menuFactory.getDishes().update({id:$scope.dish.id},$scope.dish);
                 
-                $scope.commentForm.$setPristine();
+                $scope.mycommentForm.$setPristine();
                 
                 $scope.mycomment = {rating:5, comment:"", author:"", date:""};
             }
