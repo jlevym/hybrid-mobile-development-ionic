@@ -78,6 +78,17 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
         }
       }
     })
+
+ .state('app.dish-detail-popover', {
+      url: '/dish-detail-popover',
+      views: {
+        'mainContent': {
+          templateUrl: 'templates/dish-detail-popover.html',
+            controller:'DishDetailController'
+        }
+      }
+    })
+ 
   .state('app.dishdetails', {
     url: '/menu/:id',
     views: {

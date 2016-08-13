@@ -1,7 +1,11 @@
 <ion-view view-title="Dish Details">
+ <ion-nav-buttons side="secondary">
+<div class="buttons">
+        <a class="button button-icon icon ion-android-more-horizontal" 
+          href="#/app/dish-detail-popover"></a>
+      </div>
+      </ion-nav-buttons>
   <ion-content>
-      <div class="card">
-      
           <div class="item item-body item-text-wrap">
                <img class="full-image" ng-src="{{baseURL+dish.image}}" alt="Uthappizza">
                 <h2>{{dish.name}}

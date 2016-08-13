@@ -203,7 +203,7 @@ angular.module('conFusion.controllers', [])
             };
         }])
 
-          .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', function($scope, $stateParams, menuFactory, baseURL) {
+          .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', '$ionicPopover', '$ionicListDelegate', function($scope, $stateParams, menuFactory, baseURL, $ionicPopover, $ionicListDelegate) {
             $scope.baseURL = baseURL;
             $scope.showDish = false;
             $scope.message="Loading ...";
@@ -218,6 +218,38 @@ angular.module('conFusion.controllers', [])
                                 $scope.message = "Error: "+response.status + " " + response.statusText;
                             }
             );
+
+            //starting my popover code.
+            // .fromTemplateUrl() method
+                      $ionicPopover.fromTemplateUrl('dish-detail-popover.html', {
+                        scope: $scope
+                          }).then(function(popover) {
+                            $scope.popover = popover;
+                          });
+
+
+                          $scope.openPopover = function() {
+                            $scope.popover.show();
+                          };
+
+                          /*
+                          $scope.closePopover = function() {
+                            $scope.popover.hide();
+                          };
+                          //Cleanup the popover when we're done with it!
+                          $scope.$on('$destroy', function() {
+                            $scope.popover.remove();
+                          });
+                          // Execute action on hide popover
+                          $scope.$on('popover.hidden', function() {
+                            // Execute action
+                          });
+                          // Execute action on remove popover
+                          $scope.$on('popover.removed', function() {
+                            // Execute action
+                          }); */
+
+
 
             
         }])
