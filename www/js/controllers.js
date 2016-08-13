@@ -220,20 +220,17 @@ angular.module('conFusion.controllers', [])
                             
             );
 
-            
-
-             
-            //starting my popover code.
-            // .fromTemplateUrl() method
-
-
-
+             $scope.addFavorite = function (index) {
+                console.log("index is " + index);
+                favoriteFactory.addToFavorites(index);
+                $scope.closePopover();
+                
+            }
 
              $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
                   scope: $scope
                }).then(function(popover) {
                   $scope.popover = popover;
-                  $scope.popover.id = $scope.dish.id;
                });
 
                $scope.openPopover = function($event) {
@@ -259,12 +256,9 @@ angular.module('conFusion.controllers', [])
                   // Execute action
                }); 
 
-               $scope.addFavorite = function (index) {
-                console.log("index is " + index);
-                favoriteFactory.addToFavorites(index);
-                $ionicListDelegate.closeOptionButtons();
-            }
 
+
+              
 
      
             
