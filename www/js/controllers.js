@@ -203,7 +203,7 @@ angular.module('conFusion.controllers', [])
             };
         }])
 
-          .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', '$ionicPopover', '$ionicListDelegate', function($scope, $stateParams, menuFactory, baseURL, $ionicPopover, $ionicListDelegate) {
+          .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', '$ionicPopover', '$ionicListDelegate', 'favoriteFactory', function($scope, $stateParams, menuFactory, baseURL, $ionicPopover, $ionicListDelegate, favoriteFactory) {
             $scope.baseURL = baseURL;
             $scope.showDish = false;
             $scope.message="Loading ...";
@@ -217,8 +217,12 @@ angular.module('conFusion.controllers', [])
                             function(response) {
                                 $scope.message = "Error: "+response.status + " " + response.statusText;
                             }
+                            
             );
 
+            
+
+             
             //starting my popover code.
             // .fromTemplateUrl() method
 
@@ -229,10 +233,10 @@ angular.module('conFusion.controllers', [])
                   scope: $scope
                }).then(function(popover) {
                   $scope.popover = popover;
+                  $scope.popover.id = $scope.dish.id;
                });
 
                $scope.openPopover = function($event) {
-                console.log('this is the openPopover place');
                   $scope.popover.show();
                };
 
@@ -253,7 +257,16 @@ angular.module('conFusion.controllers', [])
                // Execute action on remove popover
                $scope.$on('popover.removed', function() {
                   // Execute action
-               });      
+               }); 
+
+               $scope.addFavorite = function (index) {
+                console.log("index is " + index);
+                favoriteFactory.addToFavorites(index);
+                $ionicListDelegate.closeOptionButtons();
+            }
+
+
+     
             
         }])
 

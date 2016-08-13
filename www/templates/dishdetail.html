@@ -2,7 +2,7 @@
  <ion-nav-buttons side="secondary">
 <div class="buttons">
        <button class="button button-icon icon ion-android-more-horizontal" 
-          ng-click = "openPopover()"></button>
+          ng-click = "openPopover($event)"></button>
       </div>
       </ion-nav-buttons>
   <ion-content>
@@ -13,7 +13,6 @@
                 <span class="badge badge-assertive">{{dish.label}}</span></h2>
                 <p>{{dish.description}}</p>
           </div>
-          <button class = "button" ng-click = "openPopover()">Add Popover</button>
       </div>
        <div class="row">
             <div class="col col-offset-10">
