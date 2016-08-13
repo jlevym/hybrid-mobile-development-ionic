@@ -225,14 +225,18 @@ angular.module('conFusion.controllers', [])
                         scope: $scope
                           }).then(function(popover) {
                             $scope.popover = popover;
+                            
+
                           });
 
 
+
+                          /*
                           $scope.openPopover = function() {
                             $scope.popover.show();
                           };
 
-                          /*
+                          
                           $scope.closePopover = function() {
                             $scope.popover.hide();
                           };
