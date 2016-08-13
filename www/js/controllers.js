@@ -203,7 +203,7 @@ angular.module('conFusion.controllers', [])
             };
         }])
 
-          .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', '$ionicPopover', '$ionicListDelegate', 'favoriteFactory', function($scope, $stateParams, menuFactory, baseURL, $ionicPopover, $ionicListDelegate, favoriteFactory) {
+          .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', '$ionicPopover', '$ionicListDelegate', 'favoriteFactory', '$ionicModal', '$timeout', function($scope, $stateParams, menuFactory, baseURL, $ionicPopover, $ionicListDelegate, favoriteFactory, $ionicModal, $timeout) {
             $scope.baseURL = baseURL;
             $scope.showDish = false;
             $scope.message="Loading ...";
@@ -227,36 +227,65 @@ angular.module('conFusion.controllers', [])
                 
             }
 
-             $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
+            $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
                   scope: $scope
-               }).then(function(popover) {
-                  $scope.popover = popover;
-               });
+                   }).then(function(popover) {
+                      $scope.popover = popover;
+                   });
 
-               $scope.openPopover = function($event) {
-                  $scope.popover.show();
-               };
+                   $scope.openPopover = function($event) {
+                      $scope.popover.show();
+                   };
 
-               $scope.closePopover = function() {
-                  $scope.popover.hide();
-               };
+                   $scope.closePopover = function() {
+                      $scope.popover.hide();
+                   };
 
-               //Cleanup the popover when we're done with it!
-               $scope.$on('$destroy', function() {
-                  $scope.popover.remove();
-               });
+                   //Cleanup the popover when we're done with it!
+                   $scope.$on('$destroy', function() {
+                      $scope.popover.remove();
+                   });
 
-               // Execute action on hide popover
-               $scope.$on('popover.hidden', function() {
-                  // Execute action
-               });
+                   // Execute action on hide popover
+                   $scope.$on('popover.hidden', function() {
+                      // Execute action
+                   });
 
-               // Execute action on remove popover
-               $scope.$on('popover.removed', function() {
-                  // Execute action
-               }); 
+                   // Execute action on remove popover
+                   $scope.$on('popover.removed', function() {
+                      // Execute action
+                   }); 
 
 
+            $scope.comments = {};
+
+  // Create the comment modal 
+            $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+                    scope: $scope
+                  }).then(function(modal) {
+                    $scope.commentform = modal;
+                  });
+
+                  // Triggered in the comment modal to close it
+                  $scope.closeComment = function() {
+                    $scope.commentform.hide();
+                  };
+
+                  // Open the comment modal
+                  $scope.openComment = function() {
+                    $scope.commentform.show();
+                  };
+
+                  // Perform the comment action when the user submits the commentform
+                  $scope.doComment = function() {
+                    console.log('saving comment', $scope.comments);
+
+                    // Simulate a comment delay. Remove this and replace with your comment
+                    // code if using a server system
+                    $timeout(function() {
+                      $scope.closeComment();
+                    }, 1000);
+                  };    
 
               
 
@@ -274,7 +303,7 @@ angular.module('conFusion.controllers', [])
                 console.log($scope.mycomment);
                 
                 $scope.dish.comments.push($scope.mycomment);
-        menuFactory.getDishes().update({id:$scope.dish.id},$scope.dish);
+                        menuFactory.getDishes().update({id:$scope.dish.id},$scope.dish);
                 
                 $scope.commentForm.$setPristine();
                 

@@ -88,6 +88,16 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
         }
       }
     })
+
+ .state('app.dish-comment', {
+      url: '/dish-comment',
+      views: {
+        'mainContent': {
+          templateUrl: 'templates/dish-comment.html',
+            controller:'DishDetailController'
+        }
+      }
+    })
  
   .state('app.dishdetails', {
     url: '/menu/:id',
