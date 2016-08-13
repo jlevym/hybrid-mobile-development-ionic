@@ -221,40 +221,39 @@ angular.module('conFusion.controllers', [])
 
             //starting my popover code.
             // .fromTemplateUrl() method
-                      $ionicPopover.fromTemplateUrl('dish-detail-popover.html', {
-                        scope: $scope
-                          }).then(function(popover) {
-                            $scope.popover = popover;
-                            
-
-                          });
 
 
 
-                          /*
-                          $scope.openPopover = function() {
-                            $scope.popover.show();
-                          };
 
-                          
-                          $scope.closePopover = function() {
-                            $scope.popover.hide();
-                          };
-                          //Cleanup the popover when we're done with it!
-                          $scope.$on('$destroy', function() {
-                            $scope.popover.remove();
-                          });
-                          // Execute action on hide popover
-                          $scope.$on('popover.hidden', function() {
-                            // Execute action
-                          });
-                          // Execute action on remove popover
-                          $scope.$on('popover.removed', function() {
-                            // Execute action
-                          }); */
+             $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
+                  scope: $scope
+               }).then(function(popover) {
+                  $scope.popover = popover;
+               });
 
+               $scope.openPopover = function($event) {
+                console.log('this is the openPopover place');
+                  $scope.popover.show();
+               };
 
+               $scope.closePopover = function() {
+                  $scope.popover.hide();
+               };
 
+               //Cleanup the popover when we're done with it!
+               $scope.$on('$destroy', function() {
+                  $scope.popover.remove();
+               });
+
+               // Execute action on hide popover
+               $scope.$on('popover.hidden', function() {
+                  // Execute action
+               });
+
+               // Execute action on remove popover
+               $scope.$on('popover.removed', function() {
+                  // Execute action
+               });      
             
         }])
 

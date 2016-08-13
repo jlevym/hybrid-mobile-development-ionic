@@ -1,6 +1,7 @@
 /* Empty. Add your own CSS if you like */
 .popover {
   height: auto !important;
+  opacity: 1;
 }
 .popover ion-header-bar {
   position: relative;
@@ -12,4 +13,4 @@
 .popover-inner-content {
   width: 100%;
   padding: 5px 20px;
-}
+} 
