@@ -304,6 +304,8 @@ angular.module('conFusion.controllers', [])
                             menuFactory.getDishes().update({id:$scope.dish.id},$scope.dish);
                     //$scope.commentForm.$setPristine();
                     $scope.mycomment = {rating:5, comment:"", author:"", date:""};
+                    $scope.closeComment();
+                    $scope.closePopover();
                     }
 
      
