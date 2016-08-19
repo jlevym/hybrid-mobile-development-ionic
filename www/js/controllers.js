@@ -303,23 +303,14 @@ angular.module('conFusion.controllers', [])
 
         // implement the IndexController and About Controller here
 
-        .controller('IndexController', ['$scope', 'menuFactory','promotionFactory', 'corporateFactory', 'baseURL', function($scope, menuFactory, promotionFactory, corporateFactory, baseURL) {
+        .controller('IndexController', ['$scope', 'dish','promotion', 'leaders', 'baseURL', function($scope, dish, promotion, leaders, baseURL) {
                                         
                         $scope.baseURL = baseURL;
-                        $scope.leader = corporateFactory.get({id:3});
+                        $scope.leader = leaders;
                         $scope.showDish = false;
-                        $scope.message="Loading ...";
-                        $scope.dish = menuFactory.get({id:0})
-                        .$promise.then(
-                            function(response){
-                                $scope.dish = response;
-                                $scope.showDish = true;
-                            },
-                            function(response) {
-                                $scope.message = "Error: "+response.status + " " + response.statusText;
-                            }
-                        );
-                        $scope.promotion = promotionFactory.get({id:0});
+                        $scope.dish = dish;
+                    
+                        $scope.promotion = promotion;
             
                     }])
 
