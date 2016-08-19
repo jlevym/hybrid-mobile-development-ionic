@@ -66,12 +66,7 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
       views: {
         'mainContent': {
           templateUrl: 'templates/aboutus.html',
-            controller: 'AboutController',
-         resolve: {
-          leaders: ['corporateFactory', function(corporateFactory){
-            return corporateFactory.query();
-          }]
-         }   
+            controller: 'AboutController'
         }
       }
     })
