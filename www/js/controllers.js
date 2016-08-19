@@ -116,8 +116,8 @@ angular.module('conFusion.controllers', [])
             $scope.showMenu = false;
             
             
-                    $scope.dishes = dishes;
-                    $scope.showMenu = true;
+            $scope.dishes = dishes;
+            $scope.showMenu = true;
           
                         
             $scope.select = function(setTab) {
