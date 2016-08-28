@@ -146,12 +146,11 @@ angular.module('conFusion.controllers', [])
             };
 
             $scope.addFavorite = function (index) {
-                console.log("index is test " + index);
+                console.log("index is " + index);
                 favoriteFactory.addToFavorites(index);
                 $ionicListDelegate.closeOptionButtons();
 
                 $ionicPlatform.ready(function () {
-                  console.log("i am here");
                   $cordovaLocalNotification.schedule({
                     id: 1,
                     title: "Added Favorite",
