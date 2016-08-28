@@ -39,7 +39,7 @@ angular.module('conFusion.controllers', [])
     $timeout(function() {
       $scope.closeReserve();
     }, 1000);
-  };    
+  };
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -107,22 +107,22 @@ angular.module('conFusion.controllers', [])
 
 
 
- .controller('MenuController', ['$scope', 'dishes', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', function ($scope, dishes, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
+  .controller('MenuController', ['$scope', 'dishes', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPlatform', '$cordovaLocalNotification', '$cordovaToast', function ($scope, dishes, favoriteFactory, baseURL, $ionicListDelegate, $ionicPlatform, $cordovaLocalNotification, $cordovaToast) {
 
             $scope.baseURL = baseURL;
             $scope.tab = 1;
             $scope.filtText = '';
             $scope.showDetails = false;
             $scope.showMenu = false;
-            
-            
+
+
             $scope.dishes = dishes;
             $scope.showMenu = true;
-          
-                        
+
+
             $scope.select = function(setTab) {
                 $scope.tab = setTab;
-                
+
                 if (setTab === 2) {
                     $scope.filtText = "appetizer";
                 }
@@ -140,15 +140,38 @@ angular.module('conFusion.controllers', [])
             $scope.isSelected = function (checkTab) {
                 return ($scope.tab === checkTab);
             };
-    
+
             $scope.toggleDetails = function() {
                 $scope.showDetails = !$scope.showDetails;
             };
 
             $scope.addFavorite = function (index) {
-                console.log("index is " + index);
+                console.log("index is test " + index);
                 favoriteFactory.addToFavorites(index);
                 $ionicListDelegate.closeOptionButtons();
+
+                $ionicPlatform.ready(function () {
+                  console.log("i am here");
+                  $cordovaLocalNotification.schedule({
+                    id: 1,
+                    title: "Added Favorite",
+                    text: $scope.dishes[index].name
+                  }).then(function () {
+                      console.log('Added Favorite '+$scope.dishes[index].name);
+                    },
+                    function () {
+                      console.log('Failed to add Notification ');
+                    });
+
+                  $cordovaToast
+                    .show('Added Favorite '+$scope.dishes[index].name, 'long', 'center')
+                    .then(function (success) {
+                      // success
+                    }, function (error) {
+                      // error
+                    });
+                });
+
             }
         }])
 
@@ -156,20 +179,20 @@ angular.module('conFusion.controllers', [])
 
             $scope.baseURL = baseURL;
             $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
-            
+
             var channels = [{value:"tel", label:"Tel."}, {value:"Email",label:"Email"}];
-            
+
             $scope.channels = channels;
             $scope.invalidChannelSelection = false;
-                        
+
         }])
 
         .controller('FeedbackController', ['$scope', 'feedbackFactory', function($scope,feedbackFactory) {
-            
+
             $scope.sendFeedback = function() {
-                
+
                 console.log($scope.feedback);
-                
+
                 if ($scope.feedback.agree && ($scope.feedback.mychannel == "")) {
                     $scope.invalidChannelSelection = true;
                     console.log('incorrect');
@@ -188,14 +211,14 @@ angular.module('conFusion.controllers', [])
           .controller('DishDetailController', ['$scope', '$stateParams', 'dish', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', '$ionicModal', function ($scope, $stateParams, dish, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal) {
             $scope.baseURL = baseURL;
             $scope.showDish = false;
-            
+
             $scope.dish = dish;
 
              $scope.addFavorite = function (index) {
                 console.log("index is " + index);
                 favoriteFactory.addToFavorites(index);
                 $scope.closePopover();
-                
+
             }
 
             $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
@@ -226,12 +249,12 @@ angular.module('conFusion.controllers', [])
                    // Execute action on remove popover
                    $scope.$on('popover.removed', function() {
                       // Execute action
-                   }); 
+                   });
 
 
-           
 
-                  // Create the comment modal 
+
+                  // Create the comment modal
                   $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
                   scope: $scope
                   }).then(function(modal) {
@@ -266,7 +289,7 @@ angular.module('conFusion.controllers', [])
 
                     $scope.mycomments = {};
                     $scope.mycomment = {rating:5, comment:"", author:"", date:""};
-                
+
                     $scope.submitComment = function () {
                     $scope.mycomment.date = new Date().toISOString();
                     console.log($scope.mycomment);
@@ -279,24 +302,24 @@ angular.module('conFusion.controllers', [])
                     $scope.closePopover();
                     }
 
-     
-            
+
+
         }])
 
         .controller('DishCommentController', ['$scope', 'menuFactory', function($scope,menuFactory) {
-            
+
             $scope.mycomment = {rating:5, comment:"", author:"", date:""};
-            
+
             $scope.submitComment = function () {
-                
+
                 $scope.mycomment.date = new Date().toISOString();
                 console.log($scope.mycomment);
-                
+
                 $scope.dish.comments.push($scope.mycomment);
                         menuFactory.update({id:$scope.dish.id},$scope.dish);
-                
+
                 $scope.mycommentForm.$setPristine();
-                
+
                 $scope.mycomment = {rating:5, comment:"", author:"", date:""};
             }
         }])
@@ -304,22 +327,22 @@ angular.module('conFusion.controllers', [])
         // implement the IndexController and About Controller here
 
         .controller('IndexController', ['$scope', 'dish','promotion', 'leaders', 'baseURL', function($scope, dish, promotion, leaders, baseURL) {
-                                        
+
                         $scope.baseURL = baseURL;
                         $scope.leader = leaders;
                         $scope.showDish = false;
                         $scope.dish = dish;
-                    
+
                         $scope.promotion = promotion;
-            
+
                     }])
 
         .controller('AboutController', ['$scope', 'leaders', 'baseURL', function($scope, leaders, baseURL) {
-                    
+
                     $scope.baseURL = baseURL;
                     $scope.leaders = leaders;
                     console.log($scope.leaders);
-            
+
                     }])
         .filter('favoriteFilter', function () {
                     return function (dishes, favorites) {
