@@ -96,7 +96,7 @@ angular.module('conFusion.controllers', [])
     //start assignment 4 - picturePicker
 
     var options = {
-      maximumImagesCount: 10,
+      maximumImagesCount: 1,
       width: 800,
       height: 800,
       quality: 80
@@ -107,6 +107,7 @@ angular.module('conFusion.controllers', [])
         .then(function (results) {
           for (var i = 0; i < results.length; i++) {
             console.log('Image URI: ' + results[i]);
+            $scope.registration.imgSrc="image URI:" + results[0];
           }
         }, function(error) {
           // error getting photos
