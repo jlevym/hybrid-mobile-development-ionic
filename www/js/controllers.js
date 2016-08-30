@@ -97,24 +97,25 @@ angular.module('conFusion.controllers', [])
 
     var options1 = {
       maximumImagesCount: 1,
-      width: 800,
-      height: 800,
-      quality: 80
+      width: 100,
+      height: 100,
+      quality: 50
     };
 
     $scope.pickPicture = function() {
       $cordovaImagePicker.getPictures(options1)
         .then(function (results) {
           for (var i = 0; i < results.length; i++) {
-            console.log('Image URI: ' + results[i]);
-            $scope.registration.imgSrc="image URI:" + results[0];
+            $scope.registration.imgSrc = results[0];
+            window.plugins.Base64.encodeFile($scope.registration.imgSrc, function(base64){  // Encode URI to Base64 needed for contacts plugin
+              $scope.registration.imgSrc = base64;
+            });
           }
         }, function(error) {
           // error getting photos
         });
     };
   });
-
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
