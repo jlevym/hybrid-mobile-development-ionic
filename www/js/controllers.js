@@ -95,7 +95,7 @@ angular.module('conFusion.controllers', [])
 
     //start assignment 4 - picturePicker
 
-    var options = {
+    var options1 = {
       maximumImagesCount: 1,
       width: 800,
       height: 800,
@@ -103,7 +103,7 @@ angular.module('conFusion.controllers', [])
     };
 
     $scope.pickPicture = function() {
-      $cordovaImagePicker.getPictures(options)
+      $cordovaImagePicker.getPictures(options1)
         .then(function (results) {
           for (var i = 0; i < results.length; i++) {
             console.log('Image URI: ' + results[i]);
