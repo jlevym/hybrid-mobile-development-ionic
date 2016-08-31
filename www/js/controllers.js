@@ -177,7 +177,7 @@ angular.module('conFusion.controllers', [])
                 $cordovaVibration.vibrate(1000);
                 console.log(navigator.vibrate);
               }
-              
+
 
             } else {
                 console.log('Canceled delete');
