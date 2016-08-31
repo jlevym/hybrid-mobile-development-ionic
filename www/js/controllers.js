@@ -146,7 +146,7 @@ angular.module('conFusion.controllers', [])
   };
 })
 
-.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
+.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaVibration', function ($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout, $cordovaVibration) {
     $scope.baseURL = baseURL;
     $scope.shouldShowDelete = false;
 
@@ -171,6 +171,14 @@ angular.module('conFusion.controllers', [])
             if(res){
                 console.log('ok to delete');
                 favoriteFactory.deleteFromFavorites(index);
+
+              document.addEventListener("deviceready", onDeviceReady, false);
+              function onDeviceReady() {
+                $cordovaVibration.vibrate(1000);
+                console.log(navigator.vibrate);
+              }
+              
+
             } else {
                 console.log('Canceled delete');
             }
