@@ -174,9 +174,7 @@ angular.module('conFusion.controllers', [])
 
               document.addEventListener("deviceready", onDeviceReady, false);
               function onDeviceReady() {
-                $cordovaVibration.vibrate(1000);
-                navigator.vibrate(1000);
-                console.log(navigator.vibrate);
+                $cordovaVibration.vibrate(2000);
               }
 
 
